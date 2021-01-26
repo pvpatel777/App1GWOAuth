@@ -10,41 +10,6 @@ spring:
             client-id: 146901521273-1f5566k4iavttoc7m78g6r903183r7j4.apps.googleusercontent.com
             client-secret: 6NpoeN5dD54FjGnJ_8Rep9au
 
-#            authorization-grant-type: authorization_code
-#            client-name: Excercise1
-#            client-authentication-method: https://accounts.google.com/o/oauth2/auth
-#            redirect-uri: "{baseUrl}/authorized"
-#            # provider: google
-#            scope: openid,profile,email
-#        provider:
-#          google:
-#            authorization-uri: https://accounts.google.com/o/oauth2/auth
-#            token-uri: https://oauth2.googleapis.com/token
-#            # userNameAttribute: user_name
-#            issuer-uri: https://accounts.google.com
-#            # jwk-set-uri: 
-#            # user-info-authentication-method: 
-#            user-info-uri: https://openidconnect.googleapis.com/v1/userinfo
-#            # user-name-attribute:   cloud:    gateway:
-      routes:
-      - id: localGW
-        uri: http://localhost:8080
-        predicates:
-        - Path=
-      - id: localGW
-        uri: http://localhost:8080/authorized
-        predicates:
-        - Path=/authorized
-      - id: usersApp_usersApi1
-        uri: http://localhost:8083/users
-        predicates:
-        - Path=/users
-      - id: usersApp_usersApi2
-        uri: http://localhost:8083/users/**
-        predicates:
-        - Path=/users/**
-      enabled: true
-      metrics:        enabled: true
 management:
   endpoints:
     web:
@@ -61,5 +26,7 @@ logging:
     '[org.springframework.security]': debug
     '[org.springframework.boot.autoconfigure]': info
     '[org.springframework.cloud.gateway]': debug
+    '[org.springframework.web.HttpLogging]': debug
+    '[org.springframework.security.oauth2]': debug
     # '[reactor.netty]': debug
    
