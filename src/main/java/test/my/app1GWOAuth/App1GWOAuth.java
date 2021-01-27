@@ -1,30 +1,31 @@
 package test.my.app1GWOAuth;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import java.util.TimeZone;
+
+import javax.annotation.PostConstruct;
+
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.cloud.gateway.filter.factory.TokenRelayGatewayFilterFactory;
 import org.springframework.cloud.gateway.route.RouteLocator;
 import org.springframework.cloud.gateway.route.builder.RouteLocatorBuilder;
 import org.springframework.context.annotation.Bean;
-import org.springframework.security.config.annotation.web.reactive.EnableWebFluxSecurity;
 import org.springframework.web.filter.CommonsRequestLoggingFilter;
-@EnableWebFluxSecurity
 @SpringBootApplication
 public class App1GWOAuth {
-
-	@Autowired
-	private TokenRelayGatewayFilterFactory filterFactory;
 
 	@Bean
 	public RouteLocator customRouteLocator(RouteLocatorBuilder builder) {
 		return builder.routes()
 				.route("users",
-						r -> r.path("/users")
-								.filters(f -> f.filters(filterFactory.apply())
-										.removeRequestHeader("Cookie"))
-								.uri("http://localhost:8083"))
+						r -> r.path("/users").uri("http://localhost:8083"))
+				.route("users/*",
+						r -> r.path("/users/*").uri("http://localhost:8083"))
 				.build();
+	}
+
+	@PostConstruct
+	public void init() {
+		TimeZone.setDefault(TimeZone.getTimeZone("UTC"));
 	}
 
 	@Bean

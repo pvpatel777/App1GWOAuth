@@ -9,6 +9,10 @@ spring:
           google:
             client-id: 146901521273-1f5566k4iavttoc7m78g6r903183r7j4.apps.googleusercontent.com
             client-secret: 6NpoeN5dD54FjGnJ_8Rep9au
+      resourceserver:
+        jwt:
+          # jwk-set-uri: https://oauth2.googleapis.com/token
+          issuer-uri: https://accounts.google.com
 
 management:
   endpoints:
@@ -22,11 +26,11 @@ logging:
   level:
     test: debug
     root: info
-    '[org.springframework.web]': info
+    '[org.springframework.web]': debug
     '[org.springframework.security]': debug
     '[org.springframework.boot.autoconfigure]': info
     '[org.springframework.cloud.gateway]': debug
     '[org.springframework.web.HttpLogging]': debug
     '[org.springframework.security.oauth2]': debug
-    # '[reactor.netty]': debug
-   
+    '[org.springframework.web.filter]': debug
+    
